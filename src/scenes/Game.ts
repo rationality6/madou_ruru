@@ -1,22 +1,27 @@
-import PhaserSceneTool from "./PhaserSceneTool"
+import PhaserSceneTool from "./PhaserSceneTool";
 
 class GameScene extends PhaserSceneTool {
   constructor() {
-    super('GameScene');
+    super("GameScene");
   }
 
   create() {
-    const logo = this.add.image(400, 70, 'interpretLogoWithCat');
+    const logo = this.add.image(690, 570, "interpretLogoWithCat");
+    logo.setScale(0.3);
 
-    this.tweens.add({
-      targets: logo,
-      y: 350,
-      duration: 1500,
-      ease: 'Sine.inOut',
-      yoyo: true,
-      repeat: -1
+    this.anims.create({
+      key: "ruru-idle",
+      frames: this.anims.generateFrameNumbers("ruru-idle", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 10,
+      repeat: -1,
     });
+
+    const ruru = this.add.sprite(400, 300, "ruru-idle").setScale(2)
+    ruru.play("ruru-idle", true);
   }
 }
 
-export default GameScene
+export default GameScene;

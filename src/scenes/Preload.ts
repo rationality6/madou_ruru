@@ -13,13 +13,18 @@ class Preload extends PhaserSceneTool {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("ruru-idle", "assets/ruru/ruru_idle.png", {
+      frameWidth: 128,
+      frameHeight: 180,
+    });
+
     this.loadingImagesMockup();
 
     // this.load.audio("jumpSound", "assets/sounds/jump.mp3");
   }
 
   loadingImagesMockup() {
-    [...Array(5000).keys()].forEach((i) => {
+    [...Array(100).keys()].forEach((i) => {
       this.load.image(`catWalking${i}`, "assets/cat_walking.png");
     });
   }
@@ -28,7 +33,7 @@ class Preload extends PhaserSceneTool {
     let progressBar = this.add.graphics();
     let progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
+    // progressBox.fillRect(240, 270, 320, 50);
 
     let width = this.cameras.main.width;
     let height = this.cameras.main.height;
@@ -69,8 +74,8 @@ class Preload extends PhaserSceneTool {
     this.load.on("progress", (value) => {
       percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
-      progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillStyle(0xffffff, 0.8);
+      progressBar.fillRect(this.gameWidth / 2 - 160, 280, 300 * value, 30);
     });
 
     this.load.on("fileprogress", (file) => {
@@ -97,7 +102,7 @@ class Preload extends PhaserSceneTool {
 
     setTimeout(() => {
       this.scene.start("GameScene");
-    }, 3000);
+    }, 100);
   }
 }
 
