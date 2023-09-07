@@ -18,13 +18,18 @@ class Preload extends PhaserSceneTool {
       frameHeight: 180,
     });
 
+    this.load.spritesheet("ruru-special", "assets/ruru/ruru_special_1.png", {
+      frameWidth: 140,
+      frameHeight: 240,
+    });
+
     this.loadingImagesMockup();
 
     // this.load.audio("jumpSound", "assets/sounds/jump.mp3");
   }
 
   loadingImagesMockup() {
-    [...Array(100).keys()].forEach((i) => {
+    [...Array(5).keys()].forEach((i) => {
       this.load.image(`catWalking${i}`, "assets/cat_walking.png");
     });
   }

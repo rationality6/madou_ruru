@@ -8,6 +8,7 @@ export default {
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
   parent: 'game',
+  // pixelArt: true,
   backgroundColor: 'transparent',
   scale: {
     width: 800,
