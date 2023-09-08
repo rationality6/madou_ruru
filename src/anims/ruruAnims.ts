@@ -10,8 +10,8 @@ export default (anims) => {
   });
 
   anims.create({
-    key: "ruru-special",
-    frames: anims.generateFrameNumbers("ruru-special", {
+    key: "ruru-special-kick",
+    frames: anims.generateFrameNumbers("ruru-special-kick", {
       start: 0,
       end: 5,
     }),
