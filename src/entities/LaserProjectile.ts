@@ -14,6 +14,7 @@ class LaserProjectile extends Phaser.Physics.Arcade.Sprite {
   playLaserSound(){
     const lasersound = this.scene.sound.add("laserSound", { volume: 0.2 });
     lasersound.play();
+    this.scene.cameras.main.shake(100);
   }
 }
 

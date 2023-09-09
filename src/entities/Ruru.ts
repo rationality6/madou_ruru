@@ -6,8 +6,8 @@ import FullChargeParticle from "./FullChargeParticle";
 class Ruru extends Phaser.Physics.Arcade.Sprite {
   middleOfAnimation: boolean = false;
   ruruState: string = "idle";
-  setDefaultX: number;
-  setDefaultY: number;
+  defaultX: number;
+  defaultY: number;
   stemena: number = 40;
 
   auraDuration: number = 0;
@@ -16,8 +16,8 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, "ruru-idle");
 
-    this.setDefaultX = x;
-    this.setDefaultY = y;
+    this.defaultX = x;
+    this.defaultY = y;
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -56,8 +56,10 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
 
     await this.scene.setDelay(200);
     this.scene.sound.add("hitSound2", { volume: 0.3 }).play();
-
+    this.scene.cameras.main.shake(50);
     await this.scene.setDelay(500);
+
+    
 
     ruru_punch.setActive(false).setVisible(false);
     this.setActive(true).setVisible(true);
@@ -114,16 +116,16 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   ruruStateUpdate() {
     if (this.stemena > 60 && this.stemena < 100) {
       this.ruruState = "idle";
-      this.x = this.setDefaultX + 1;
-      this.y = this.setDefaultY + 1;
+      this.x = this.defaultX + 1;
+      this.y = this.defaultY + 1;
     } else if (this.stemena >= 100) {
       this.ruruState = "high";
-      this.x = this.setDefaultX - 5;
-      this.y = this.setDefaultY + 5;
+      this.x = this.defaultX - 5;
+      this.y = this.defaultY + 5;
     } else {
       this.ruruState = "low";
-      this.x = this.setDefaultX - 11;
-      this.y = this.setDefaultY - 10;
+      this.x = this.defaultX - 11;
+      this.y = this.defaultY - 10;
     }
     this.play(`ruru-${this.ruruState}`, true);
   }
