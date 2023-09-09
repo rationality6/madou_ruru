@@ -18,27 +18,42 @@ class Preload extends PhaserSceneTool {
       frameHeight: 180,
     });
 
-    this.load.spritesheet("ruru-special-kick", "assets/ruru/ruru_special_1.png", {
-      frameWidth: 140,
-      frameHeight: 250,
-    });
-
-    this.load.spritesheet("ruru-special-laser", "assets/ruru/ruru_sources_effact_laser.png", {
-      frameWidth: 100,
+    this.load.spritesheet("ruru-low", "assets/ruru/ruru_low.png", {
+      frameWidth: 150,
       frameHeight: 200,
     });
 
-    this.loadingImagesMockup();
+    this.load.spritesheet("ruru-high", "assets/ruru/ruru_high.png", {
+      frameWidth: 127,
+      frameHeight: 200,
+    });
+
+    this.load.spritesheet(
+      "ruru-special-kick",
+      "assets/ruru/ruru_special_1.png",
+      {
+        frameWidth: 140,
+        frameHeight: 250,
+      }
+    );
+
+    this.load.spritesheet(
+      "ruru-special-laser",
+      "assets/ruru/ruru_sources_effact_laser.png",
+      {
+        frameWidth: 100,
+        frameHeight: 200,
+      }
+    );
+
+    this.load.spritesheet("ruru-punch", "assets/ruru/ruru_punch.png", {
+      frameWidth: 150,
+      frameHeight: 200,
+    });
 
     this.load.audio("hitSound", "assets/sounds/ruru_hit35.mp3");
     this.load.audio("hitSound2", "assets/sounds/ruru_hit36.mp3");
     this.load.audio("laserSound", "assets/sounds/ruru_special_laser.mp3");
-  }
-
-  loadingImagesMockup() {
-    [...Array(5).keys()].forEach((i) => {
-      this.load.image(`catWalking${i}`, "assets/cat_walking.png");
-    });
   }
 
   loadLoadingScreen() {

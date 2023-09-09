@@ -10,6 +10,37 @@ export default (anims) => {
   });
 
   anims.create({
+    key: "ruru-low",
+    frames: anims.generateFrameNumbers("ruru-low", {
+      start: 0,
+      end: 3,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+  anims.create({
+    key: "ruru-high",
+    frames: anims.generateFrameNumbers("ruru-high", {
+      start: 0,
+      end: 3,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+
+  anims.create({
+    key: "ruru-punch",
+    frames: anims.generateFrameNumbers("ruru-punch", {
+      start: 0,
+      end: 1,
+    }),
+    frameRate: 5,
+    repeat: 0,
+  });
+
+  anims.create({
     key: "ruru-special-kick",
     frames: anims.generateFrameNumbers("ruru-special-kick", {
       start: 0,
