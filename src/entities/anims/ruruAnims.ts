@@ -18,4 +18,14 @@ export default (anims) => {
     frameRate: 10,
     repeat: 0,
   });
+
+  anims.create({
+    key: "ruru-special-laser",
+    frames: anims.generateFrameNumbers("ruru-special-laser", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 10,
+    repeat: 0,
+  });
 };

@@ -1,18 +1,16 @@
 import PhaserSceneTool from "./PhaserSceneTool";
-import initAnimations from "../anims/ruruAnims";
-import Projectile from "./Projectile";
+
+import Ruru from "../entities/Ruru";
+import Projectile from "../entities/Projectile";
 
 class GameScene extends PhaserSceneTool {
   ruru: Phaser.GameObjects.Sprite;
-  middleOfAnimation: boolean = false;
 
   constructor() {
     super("GameScene");
   }
 
-  create() {
-    initAnimations(this.anims);
-
+  setInterpretLogo(){
     const logo = this.add.image(690, 570, "interpretLogoWithCat");
     logo.setScale(0.3);
 
@@ -27,6 +25,12 @@ class GameScene extends PhaserSceneTool {
         getEnd: () => 1,
       },
     });
+  }
+
+  create() {
+    this.setInterpretLogo()
+    
+    this.ruru = new Ruru(this, 400, 300);
 
     this.input.keyboard.on("keydown-SPACE", () => {
       this.castRuruSpecial();
@@ -35,18 +39,14 @@ class GameScene extends PhaserSceneTool {
     this.input.on("pointerdown", () => {
       this.castRuruSpecial();
     });
-
-    this.ruru = this.add.sprite(400, 300, "ruru-idle").setScale(2);
-
-    this.ruru.play("ruru-idle", true);
   }
 
   async castRuruSpecial() {
-    if (this.middleOfAnimation === true) {
+    if (this.ruru.middleOfAnimation === true) {
       return;
     }
 
-    this.middleOfAnimation = true;
+    this.ruru.middleOfAnimation = true;
     this.ruru.setActive(false).setVisible(false);
 
     const ruru_special = this.add
@@ -62,23 +62,17 @@ class GameScene extends PhaserSceneTool {
     let projectile2 = new Projectile(this, 250, 240);
     let projectile3 = new Projectile(this, 550, 240);
 
-    await this.setDelay(1000);
+    await this.setDelay(500);
+    projectile1.destroy();
+    projectile2.destroy();
+    projectile3.destroy();
+    await this.setDelay(300);
 
     ruru_special.setActive(false).setVisible(false);
     this.ruru.setActive(true).setVisible(true);
 
-    this.middleOfAnimation = false;
-    projectile1.destroy();
-    projectile2.destroy();
-    projectile3.destroy();
-
-    // projectile1.on("animationcomplete", this.doSomething());
+    this.ruru.middleOfAnimation = false;
   }
-
-  // doSomething = () => {
-  //   console.log("done");
-  // .setActive(false).setVisible(false)
-  // };
 
   update(time: number, delta: number): void {}
 }
