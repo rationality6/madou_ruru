@@ -8,7 +8,7 @@ class FullChargeParticle extends Phaser.Physics.Arcade.Sprite {
     this.setVelocityY(-200)
 
     this.play("full-charge-particle");
-    this.setScale(2);
+    this.setScale(1);
   }
 
   // playLaserSound(){

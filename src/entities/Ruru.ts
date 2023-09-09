@@ -9,6 +9,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   setDefaultX: number;
   setDefaultY: number;
   stemena: number = 40;
+  auraDuration: number = 0;
 
   constructor(scene, x, y) {
     super(scene, x, y, "ruru-idle");
@@ -24,15 +25,6 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setScale(2);
     this.setInpurts();
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
-
-    setInterval(() => {
-      if (this.stemena >= 100) {
-        const randNum = Math.random() * 150;
-        const randNum2 = Math.random() * 150;
-        new FullChargeParticle(this.scene, 250 + randNum, 400 + randNum2);
-        new FullChargeParticle(this.scene, 380 + randNum2, 400 + randNum);
-      }
-    }, 500);
   }
 
   setInpurts() {
@@ -137,6 +129,15 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   update() {
     this.stemenaUpdate();
     this.ruruStateUpdate();
+
+    this.auraDuration += 16;
+    if (this.stemena >= 100 && this.auraDuration > 700) {
+      const randNum = Math.random() * 130;
+      const randNum2 = Math.random() * 130;
+      new FullChargeParticle(this.scene, 250 + randNum, 370 + randNum2);
+      new FullChargeParticle(this.scene, 380 + randNum2, 360 + randNum);
+      this.auraDuration = 0;
+    }
   }
 }
 
