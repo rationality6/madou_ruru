@@ -1,6 +1,7 @@
 import initAnimations from "./anims/ruruAnims";
 
-import Projectile from "./Projectile";
+import LaserProjectile from "./LaserProjectile";
+import FullChargeParticle from "./FullChargeParticle";
 
 class Ruru extends Phaser.Physics.Arcade.Sprite {
   middleOfAnimation: boolean = false;
@@ -23,6 +24,15 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setScale(2);
     this.setInpurts();
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+
+    setInterval(() => {
+      if (this.stemena >= 100) {
+        const randNum = Math.random() * 150;
+        const randNum2 = Math.random() * 150;
+        new FullChargeParticle(this.scene, 250 + randNum, 400 + randNum2);
+        new FullChargeParticle(this.scene, 380 + randNum2, 400 + randNum);
+      }
+    }, 500);
   }
 
   setInpurts() {
@@ -83,9 +93,9 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.scene.sound.add("hitSound", { volume: 0.3 }).play();
     await this.scene.setDelay(300);
 
-    const projectile1 = new Projectile(this.scene, 400, 300);
-    const projectile2 = new Projectile(this.scene, 250, 240);
-    const projectile3 = new Projectile(this.scene, 550, 240);
+    const projectile1 = new LaserProjectile(this.scene, 400, 300);
+    const projectile2 = new LaserProjectile(this.scene, 250, 240);
+    const projectile3 = new LaserProjectile(this.scene, 550, 240);
 
     await this.scene.setDelay(500);
     projectile1.destroy();
@@ -127,7 +137,6 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   update() {
     this.stemenaUpdate();
     this.ruruStateUpdate();
-    console.log(this.stemena);
   }
 }
 

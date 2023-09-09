@@ -28,6 +28,11 @@ class Preload extends PhaserSceneTool {
       frameHeight: 200,
     });
 
+    this.load.spritesheet("particle1", "assets/ruru/particle1.png", {
+      frameWidth: 10,
+      frameHeight: 10,
+    });
+
     this.load.spritesheet(
       "ruru-special-kick",
       "assets/ruru/ruru_special_1.png",

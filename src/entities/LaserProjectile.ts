@@ -1,4 +1,4 @@
-class Projectile extends Phaser.Physics.Arcade.Sprite {
+class LaserProjectile extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, "ruru-special-laser");
 
@@ -17,4 +17,4 @@ class Projectile extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
-export default Projectile;
+export default LaserProjectile;

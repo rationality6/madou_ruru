@@ -59,4 +59,14 @@ export default (anims) => {
     frameRate: 10,
     repeat: 0,
   });
+
+  anims.create({
+    key: "full-charge-particle",
+    frames: anims.generateFrameNumbers("particle1", {
+      start: 0,
+      end: 6,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
 };
