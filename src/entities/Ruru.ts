@@ -9,7 +9,9 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   setDefaultX: number;
   setDefaultY: number;
   stemena: number = 40;
+
   auraDuration: number = 0;
+  auraTween: any;
 
   constructor(scene, x, y) {
     super(scene, x, y, "ruru-idle");
@@ -138,6 +140,28 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
       new FullChargeParticle(this.scene, 380 + randNum2, 360 + randNum);
       this.auraDuration = 0;
     }
+
+    if (!this.auraTween && this.stemena >= 100) {
+      this.auraTween = this.playAuraTween();
+    }
+    if (this.stemena < 100 && this.auraTween) {
+      this.auraTween.stop();
+      this.auraTween = null;
+      this.setAlpha(1);
+    }
+  }
+
+  playAuraTween() {
+    return this.scene.tweens.add({
+      targets: this,
+      duration: 300,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+      alpha: {
+        getStart: () => 0.7,
+        getEnd: () => 1,
+      },
+    });
   }
 }
 
