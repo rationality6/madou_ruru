@@ -31,8 +31,40 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
 
   setInpurts() {
     this.scene.input.on("pointerdown", () => {
-      Math.random() > 0.5 ? this.castRuruPunch() : this.castRuruSpecial();
+      if (this.stemena >= 100) {
+        this.castRuruSpecial();
+      } else if (this.stemena < 100 && this.stemena >= 50) {
+        this.castRuruPahGyeokJang();
+      } else {
+        this.castRuruPunch();
+      }
     });
+  }
+
+  async castRuruPahGyeokJang() {
+    if (this.middleOfAnimation === true) {
+      return;
+    }
+    this.stemena -= 40;
+    this.middleOfAnimation = true;
+    this.setActive(false).setVisible(false);
+
+    const ruru_pahgyeokjang = this.scene.add
+      .sprite(380, 250, "ruru-pahgyeokjang")
+      .setScale(2);
+    ruru_pahgyeokjang.x += 20;
+    ruru_pahgyeokjang.y += 60;
+    ruru_pahgyeokjang.play("ruru-pahgyeokjang", true);
+
+    await this.scene.setDelay(500);
+    this.scene.sound.add("hitSound", { volume: 0.3 }).play();
+    this.scene.cameras.main.shake(50);
+    await this.scene.setDelay(500);
+
+    ruru_pahgyeokjang.setActive(false).setVisible(false);
+    this.setActive(true).setVisible(true);
+
+    this.middleOfAnimation = false;
   }
 
   async castRuruPunch() {
@@ -58,8 +90,6 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.scene.sound.add("hitSound2", { volume: 0.3 }).play();
     this.scene.cameras.main.shake(50);
     await this.scene.setDelay(500);
-
-    
 
     ruru_punch.setActive(false).setVisible(false);
     this.setActive(true).setVisible(true);
@@ -154,6 +184,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
   }
 
   playAuraTween() {
+    this.scene.sound.add("ruruYell", { volume: 1 }).play();
     return this.scene.tweens.add({
       targets: this,
       duration: 300,

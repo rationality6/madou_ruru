@@ -41,6 +41,16 @@ export default (anims) => {
   });
 
   anims.create({
+    key: "ruru-pahgyeokjang",
+    frames: anims.generateFrameNumbers("ruru-pahgyeokjang", {
+      start: 0,
+      end: 2,
+    }),
+    frameRate: 5,
+    repeat: 0,
+  });
+
+  anims.create({
     key: "ruru-special-kick",
     frames: anims.generateFrameNumbers("ruru-special-kick", {
       start: 0,

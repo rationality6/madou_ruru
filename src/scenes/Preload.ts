@@ -43,6 +43,15 @@ class Preload extends PhaserSceneTool {
     );
 
     this.load.spritesheet(
+      "ruru-pahgyeokjang",
+      "assets/ruru/ruru_pahgyeokjang.png",
+      {
+        frameWidth: 150,
+        frameHeight: 220,
+      }
+    );
+
+    this.load.spritesheet(
       "ruru-special-laser",
       "assets/ruru/ruru_sources_effact_laser.png",
       {
@@ -59,6 +68,7 @@ class Preload extends PhaserSceneTool {
     this.load.audio("hitSound", "assets/sounds/ruru_hit35.mp3");
     this.load.audio("hitSound2", "assets/sounds/ruru_hit36.mp3");
     this.load.audio("laserSound", "assets/sounds/ruru_special_laser.mp3");
+    this.load.audio("ruruYell", "assets/sounds/ruru_voice_yell.mp3");
   }
 
   loadLoadingScreen() {
