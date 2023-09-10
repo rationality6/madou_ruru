@@ -11,8 +11,8 @@ export default {
   // pixelArt: true,
   backgroundColor: 'transparent',
   scale: {
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },

@@ -7,6 +7,8 @@ class Logo extends Phaser.Physics.Arcade.Sprite {
 
     this.setScale(0.3);
 
+    this.postFX.addShine(1, 0.8, 5);
+    
     scene.add.tween({
       targets: this,
       duration: 1000,

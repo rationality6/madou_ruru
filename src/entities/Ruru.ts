@@ -2,16 +2,21 @@ import initAnimations from "./anims/ruruAnims";
 
 import LaserProjectile from "./LaserProjectile";
 import FullChargeParticle from "./FullChargeParticle";
+import HitProjectile from "./HitProjectile";
 
 class Ruru extends Phaser.Physics.Arcade.Sprite {
   middleOfAnimation: boolean = false;
   ruruState: string = "idle";
   defaultX: number;
   defaultY: number;
+
+  health: number = 100;
   stemena: number = 40;
 
   auraDuration: number = 0;
   auraTween: any;
+
+  particleGroup!: Phaser.Physics.Arcade.Group;
 
   constructor(scene, x, y) {
     super(scene, x, y, "ruru-idle");
@@ -25,11 +30,13 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     initAnimations(this.scene.anims);
 
     this.setScale(2);
-    this.setInpurts();
+    this.setInputs();
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+
+    this.particleGroup = this.scene.physics.add.group();
   }
 
-  setInpurts() {
+  setInputs() {
     this.scene.input.on("pointerdown", () => {
       if (this.stemena >= 100) {
         this.castRuruSpecial();
@@ -50,7 +57,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(false).setVisible(false);
 
     const ruru_pahgyeokjang = this.scene.add
-      .sprite(380, 250, "ruru-pahgyeokjang")
+      .sprite(this.defaultX - 30, this.defaultY - 60, "ruru-pahgyeokjang")
       .setScale(2);
     ruru_pahgyeokjang.x += 20;
     ruru_pahgyeokjang.y += 60;
@@ -65,6 +72,8 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(true).setVisible(true);
 
     this.middleOfAnimation = false;
+
+    this.scene.enemy.getHit();
   }
 
   async castRuruPunch() {
@@ -81,7 +90,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(false).setVisible(false);
 
     const ruru_punch = this.scene.add
-      .sprite(380, 250, "ruru-punch")
+      .sprite(this.defaultX, this.defaultY - 50, "ruru-punch")
       .setScale(2);
     ruru_punch.y += 50;
     ruru_punch.play("ruru-punch", true);
@@ -95,6 +104,8 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(true).setVisible(true);
 
     this.middleOfAnimation = false;
+
+    this.scene.enemy.getHit();
   }
 
   async castRuruSpecial() {
@@ -111,7 +122,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(false).setVisible(false);
 
     const ruru_special = this.scene.add
-      .sprite(380, 250, "ruru-special-kick")
+      .sprite(this.defaultX - 40, this.defaultY - 40, "ruru-special-kick")
       .setScale(2);
     ruru_special.play("ruru-special-kick", true);
 
@@ -119,9 +130,23 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.scene.sound.add("hitSound", { volume: 0.3 }).play();
     await this.scene.setDelay(300);
 
-    const projectile1 = new LaserProjectile(this.scene, 400, 300);
-    const projectile2 = new LaserProjectile(this.scene, 250, 240);
-    const projectile3 = new LaserProjectile(this.scene, 550, 240);
+    const projectile1 = new LaserProjectile(
+      this.scene,
+      this.defaultX,
+      this.y - 60
+    );
+    await this.scene.setDelay(200);
+    const projectile2 = new LaserProjectile(
+      this.scene,
+      this.defaultX + 150,
+      this.y
+    );
+    await this.scene.setDelay(400);
+    const projectile3 = new LaserProjectile(
+      this.scene,
+      this.defaultX + 300,
+      this.y - 60
+    );
 
     await this.scene.setDelay(500);
     projectile1.destroy();
@@ -160,6 +185,14 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.play(`ruru-${this.ruruState}`, true);
   }
 
+  returnParticles() {
+    this.particleGroup.getChildren().forEach((particle) => {
+      if (particle.getBounds().top <= 400) {
+        particle.destroy();
+      }
+    });
+  }
+
   update() {
     this.stemenaUpdate();
     this.ruruStateUpdate();
@@ -168,9 +201,36 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     if (this.stemena >= 100 && this.auraDuration > 700) {
       const randNum = Math.random() * 130;
       const randNum2 = Math.random() * 130;
-      new FullChargeParticle(this.scene, 250 + randNum, 370 + randNum2);
-      new FullChargeParticle(this.scene, 380 + randNum2, 360 + randNum);
+      const randNum3 = Math.random() * 130;
+
+      this.particleGroup.add(
+        new FullChargeParticle(
+          this.scene,
+          this.defaultX - 10 + randNum2,
+          this.defaultY + randNum
+        )
+      );
+
+      this.particleGroup.add(
+        new FullChargeParticle(
+          this.scene,
+          this.defaultX - 10 + randNum3,
+          this.defaultY + randNum3
+        )
+      );
+
+      this.particleGroup.add(
+        new FullChargeParticle(
+          this.scene,
+          this.defaultX - 120 + randNum,
+          this.defaultY + randNum2
+        )
+      );
+      this.particleGroup.setVelocityY(-200);
+
       this.auraDuration = 0;
+
+      this.returnParticles();
     }
 
     if (!this.auraTween && this.stemena >= 100) {

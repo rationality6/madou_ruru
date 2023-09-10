@@ -8,13 +8,16 @@ class LaserProjectile extends Phaser.Physics.Arcade.Sprite {
     this.play("ruru-special-laser");
     this.setScale(3);
 
-    this.playLaserSound()
+    this.x -= 150;
+
+    this.playLaser();
   }
 
-  playLaserSound(){
+  playLaser() {
     const lasersound = this.scene.sound.add("laserSound", { volume: 0.2 });
     lasersound.play();
     this.scene.cameras.main.shake(100);
+    this.scene.enemy.getHit();
   }
 }
 
