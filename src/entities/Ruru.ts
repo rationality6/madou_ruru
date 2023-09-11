@@ -65,6 +65,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
 
     await this.scene.setDelay(500);
     this.scene.sound.add("hitSound", { volume: 0.3 }).play();
+    this.scene.enemy.getHit();
     this.scene.cameras.main.shake(50);
     await this.scene.setDelay(500);
 
@@ -73,7 +74,6 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
 
     this.middleOfAnimation = false;
 
-    this.scene.enemy.getHit();
   }
 
   async castRuruPunch() {
@@ -97,6 +97,7 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
 
     await this.scene.setDelay(200);
     this.scene.sound.add("hitSound2", { volume: 0.3 }).play();
+    this.scene.enemy.getHit();
     this.scene.cameras.main.shake(50);
     await this.scene.setDelay(500);
 
@@ -104,8 +105,6 @@ class Ruru extends Phaser.Physics.Arcade.Sprite {
     this.setActive(true).setVisible(true);
 
     this.middleOfAnimation = false;
-
-    this.scene.enemy.getHit();
   }
 
   async castRuruSpecial() {

@@ -8,4 +8,14 @@ export default (anims) => {
     frameRate: 10,
     repeat: -1,
   });
+
+  anims.create({
+    key: "witch-hit",
+    frames: anims.generateFrameNumbers("witch-hit", {
+      start: 0,
+      end: 0,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
 };

@@ -7,7 +7,7 @@ class Witch extends Phaser.Physics.Arcade.Sprite {
   witchState: string = "idle";
   defaultX: number;
   defaultY: number;
-  
+
   health: number = 100;
 
   auraDuration: number = 0;
@@ -27,17 +27,31 @@ class Witch extends Phaser.Physics.Arcade.Sprite {
     this.setScale(2);
     this.setInputs();
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
-
   }
 
   setInputs() {
     this.scene.input.on("pointerdown", () => {});
   }
 
-  getHit(){
+  getHit() {
     const randNum = Math.random() * 150;
     const randNum2 = Math.random() * 150;
-    const hit = new HitProjectile(this.scene, this.defaultX - 80 + randNum, this.defaultY - 80 + randNum2);
+    const hit = new HitProjectile(
+      this.scene,
+      this.defaultX - 80 + randNum,
+      this.defaultY - 80 + randNum2
+    );
+
+    this.health -= 10;
+    this.witchState = "hit";
+
+    setTimeout(() => {
+      hit.destroy();
+    },1000)
+    setTimeout(() => {
+      this.witchState = "idle";
+    }, 2000);
+
   }
 
   update() {

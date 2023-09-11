@@ -33,6 +33,11 @@ class Preload extends PhaserSceneTool {
       frameHeight: 220,
     });
 
+    this.load.spritesheet("witch-hit", "assets/witch/witch_hit.png", {
+      frameWidth: 200,
+      frameHeight: 220,
+    });
+
     this.load.spritesheet("particle1", "assets/ruru/particle1.png", {
       frameWidth: 10,
       frameHeight: 10,
