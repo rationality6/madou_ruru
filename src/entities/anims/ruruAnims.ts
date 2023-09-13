@@ -5,7 +5,7 @@ export default (anims) => {
       start: 0,
       end: 3,
     }),
-    frameRate: 10,
+    frameRate: 8,
     repeat: -1,
   });
 
@@ -15,7 +15,7 @@ export default (anims) => {
       start: 0,
       end: 3,
     }),
-    frameRate: 10,
+    frameRate: 8,
     repeat: -1,
   });
 
@@ -25,10 +25,9 @@ export default (anims) => {
       start: 0,
       end: 3,
     }),
-    frameRate: 10,
+    frameRate: 8,
     repeat: -1,
   });
-
 
   anims.create({
     key: "ruru-punch",

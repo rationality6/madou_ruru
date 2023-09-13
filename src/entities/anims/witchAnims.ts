@@ -16,6 +16,17 @@ export default (anims) => {
       end: 0,
     }),
     frameRate: 10,
-    repeat: -1,
+    repeat: 0,
   });
+
+  anims.create({
+    key: "witch-attack",
+    frames: anims.generateFrameNumbers("witch-attack", {
+      start: 0,
+      end: 7,
+    }),
+    frameRate: 6,
+    repeat: 0,
+  });
+
 };
